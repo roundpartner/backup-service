@@ -1,0 +1,12 @@
+{
+  "name": "roundpartner/backup-service",
+  "description": "Backup Service",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Tom Lorentsen",
+      "email": "tom@thomaslorentsen.co.uk"
+    }
+  ]
+}
