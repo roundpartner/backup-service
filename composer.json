@@ -8,5 +8,19 @@
       "name": "Tom Lorentsen",
       "email": "tom@thomaslorentsen.co.uk"
     }
-  ]
+  ],
+  "autoload": {
+    "psr-4": {
+      "RoundPartner\\Backup\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "RoundPartner\\Test\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "2.*",
+    "phpunit/phpunit": "^4.8"
+  }
 }
