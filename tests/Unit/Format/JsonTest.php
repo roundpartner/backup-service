@@ -1,6 +1,6 @@
 <?php
 
-namespace RoundPartner\Tests\Format;
+namespace RoundPartner\Tests\Unit\Format;
 
 use RoundPartner\Backup\Format\Json;
 
@@ -21,18 +21,35 @@ class JsonTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('RoundPartner\Backup\Format\Json', $this->instance);
     }
 
-    public function testSetInputReturnsTrue()
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provide()
+     *
+     * @param mixed $input
+     */
+    public function testSetInputReturnsTrue($input)
     {
-        $this->assertTrue($this->instance->setInput(''));
+        $this->assertTrue($this->instance->setInput($input));
     }
 
-    public function testOutputTypeOfResult()
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provide()
+     *
+     * @param mixed $input
+     */
+    public function testOutputTypeOfResult($input)
     {
+        $this->instance->setInput($input);
         $this->assertInstanceOf('RoundPartner\Backup\Result', $this->instance->getOutput());
     }
 
-    public function testGetOutputReturnsJson()
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provide()
+     *
+     * @param mixed $input
+     */
+    public function testGetOutputReturnsJson($input)
     {
+        $this->instance->setInput($input);
         $this->assertJson($this->instance->getOutput()->getContents());
     }
 }

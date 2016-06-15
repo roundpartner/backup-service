@@ -8,12 +8,18 @@ class Json implements Format
 {
 
     /**
+     * @var mixed
+     */
+    protected $content;
+
+    /**
      * @param string $input
      *
      * @return bool
      */
     public function setInput($input)
     {
+        $this->content = $input;
         return true;
     }
 
@@ -23,7 +29,7 @@ class Json implements Format
     public function getOutput()
     {
         $result = new Result();
-        $result->setContents(json_encode(''));
+        $result->setContents(json_encode($this->content));
         return $result;
     }
 }

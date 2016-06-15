@@ -3,10 +3,14 @@
 namespace RoundPartner\Backup\Format;
 
 use RoundPartner\Backup\ExcelResult;
-use RoundPartner\Backup\Result;
 
 class Excel implements Format
 {
+
+    /**
+     * @var mixed
+     */
+    protected $content;
 
     /**
      * @var PHPExcel
@@ -20,6 +24,7 @@ class Excel implements Format
      */
     public function setInput($input)
     {
+        $this->content = $input;
         return true;
     }
 
@@ -35,7 +40,20 @@ class Excel implements Format
         $result = new ExcelResult();
         $result->setContents($excelWriter);
 
+        $this->processContent($this->content);
+
+
         return $result;
+    }
+
+    /**
+     * @param mixed $content
+     *
+     * @return bool
+     */
+    private function processContent($content)
+    {
+        return true;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace RoundPartner\Tests\Format;
+namespace RoundPartner\Tests\Unit\Format;
 
 use RoundPartner\Backup\Format\Excel;
 
