@@ -2,14 +2,18 @@
 
 namespace RoundPartner\Backup\Format;
 
+use RoundPartner\Backup\Result;
+
 class Json implements Format
 {
 
     /**
-     * @return string
+     * @return Result
      */
     public function getOutput()
     {
-        return json_encode('');
+        $result = new Result();
+        $result->setContents(json_encode(''));
+        return $result;
     }
 }

@@ -2,10 +2,12 @@
 
 namespace RoundPartner\Backup\Format;
 
+use RoundPartner\Backup\Result;
+
 interface Format
 {
     /**
-     * @return string
+     * @return Result
      */
     public function getOutput();
 }
