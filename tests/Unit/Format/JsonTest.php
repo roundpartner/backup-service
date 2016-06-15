@@ -21,6 +21,11 @@ class JsonTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('RoundPartner\Backup\Format\Json', $this->instance);
     }
 
+    public function testSetInputReturnsTrue()
+    {
+        $this->assertTrue($this->instance->setInput(''));
+    }
+
     public function testOutputTypeOfResult()
     {
         $this->assertInstanceOf('RoundPartner\Backup\Result', $this->instance->getOutput());
