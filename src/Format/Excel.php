@@ -2,10 +2,16 @@
 
 namespace RoundPartner\Backup\Format;
 
+use RoundPartner\Backup\ExcelResult;
 use RoundPartner\Backup\Result;
 
 class Excel implements Format
 {
+
+    /**
+     * @var PHPExcel
+     */
+    protected $excel;
 
     /**
      * @param string $input
@@ -18,11 +24,29 @@ class Excel implements Format
     }
 
     /**
-     * @return Result
+     * @return ExcelResult
      */
     public function getOutput()
     {
-        $result = new Result();
+        $this->excel = $this->getExcelInstance();
+
+        $excelWriter = new \PHPExcel_Writer_Excel2007($this->excel);
+
+        $result = new ExcelResult();
+        $result->setContents($excelWriter);
+
         return $result;
+    }
+
+    /**
+     * @return \PHPExcel
+     *
+     * @throws \PHPExcel_Exception
+     */
+    private function getExcelInstance()
+    {
+        $workSheet = new \PHPExcel();
+        $workSheet->setActiveSheetIndex(0);
+        return $workSheet;
     }
 }

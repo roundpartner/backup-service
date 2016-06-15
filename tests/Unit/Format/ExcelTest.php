@@ -7,7 +7,7 @@ use RoundPartner\Backup\Format\Excel;
 class ExcelTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Json
+     * @var Excel
      */
     protected $instance;
 
@@ -29,5 +29,10 @@ class ExcelTest extends \PHPUnit_Framework_TestCase
     public function testOutputTypeOfResult()
     {
         $this->assertInstanceOf('RoundPartner\Backup\Result', $this->instance->getOutput());
+    }
+
+    public function testOutputAsString()
+    {
+        $this->assertInternalType('string', $this->instance->getOutput()->getContents());
     }
 }
