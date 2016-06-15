@@ -35,4 +35,28 @@ class ExcelTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInternalType('string', $this->instance->getOutput()->getContents());
     }
+
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provide()
+     *
+     * @param mixed $input
+     */
+    public function testGetWorkBook($input)
+    {
+        $this->instance->setInput($input);
+        $workbook = $this->instance->getWorkBook();
+        $this->assertEquals('alpha', $workbook->getActiveSheet()->getCell('A1')->getValue());
+    }
+
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provide()
+     *
+     * @param mixed $input
+     */
+    public function testSaveOutput($input)
+    {
+        $this->instance->setInput($input);
+        $content = $this->instance->getOutput()->getContents();
+        file_put_contents('output.xlsx', $content);
+    }
 }
