@@ -65,6 +65,18 @@ class ExcelTest extends \PHPUnit_Framework_TestCase
      *
      * @param mixed $input
      */
+    public function testWorkSheetIsNamed($input)
+    {
+        $this->instance->setInput($input);
+        $workbook = $this->instance->getWorkBook();
+        $this->assertContains('Planes', $workbook->getSheetNames());
+    }
+
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provideTwoWorkSheets()
+     *
+     * @param mixed $input
+     */
     public function testSaveOutput($input)
     {
         $this->instance->setInput($input);
