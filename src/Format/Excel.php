@@ -71,48 +71,32 @@ class Excel implements Format
     {
         $this->excel = $this->getExcelInstance();
 
-        $this->processContent($this->content);
-        $this->excel->getActiveSheet()->insertNewRowBefore(1);
-        $headings = (object) array_combine($this->transcriber->getHeadings(), $this->transcriber->getHeadings());
-        $this->transcriber->createSet();
-        $this->processContent($headings);
+        $this->processWorkSheet($this->content);
         
         return $this->excel;
     }
 
-    /**
-     * @param mixed $content
-     *
-     * @return bool
-     */
-    private function processContent($content, $key = null)
-    {
 
-        if (is_string($content)) {
-            $cell = $this->excel->getActiveSheet()->getCell($this->transcriber->getPosition($key, $content));
-            $cell->setValue($content);
-        }
-        if (is_array($content)) {
-            foreach ($content as $key => $value) {
-                $this->transcriber->createSet();
-                $this->processContent($value, $key);
-            }
-        }
-        if (is_object($content)) {
-            foreach (get_object_vars($content) as $key => $value) {
-                $this->processContent($value, $key);
-            }
-        }
-        return true;
-    }
-
-    private function getColumnByHeading($heading)
+    private function processWorkSheet($content)
     {
-        if (array_key_exists($heading, $this->headings)) {
-            return $this->headings[$heading];
+        if (!is_array($content)) {
+            $excelSheetProcessor = new ExcelSheet($this->excel, $content);
+            return $excelSheetProcessor->process();
         }
-        $this->headings[$heading] = count($this->headings);
-        return $this->getColumnByHeading($heading);
+        foreach (range(1, count($content)) as $worksheet) {
+            $this->excel->createSheet();
+        }
+        $this->excel->removeSheetByIndex(0);
+
+        $sheets = $this->excel->getAllSheets();
+        foreach ($content as $workSheetTitle => $workSheetContent) {
+            $sheet = array_shift($sheets);
+            $sheet->setTitle($workSheetTitle);
+            $this->excel->setActiveSheetIndexByName($workSheetTitle);
+            $excelSheetProcessor = new ExcelSheet($this->excel, $workSheetContent);
+            $excelSheetProcessor->process();
+        }
+        $this->excel->setActiveSheetIndex(0);
     }
 
     /**

@@ -49,7 +49,20 @@ class ExcelTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provide()
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provideTwoWorkSheets()
+     *
+     * @param mixed $input
+     */
+    public function testCreatesTwoWorkSheets($input)
+    {
+        $this->instance->setInput($input);
+        $workbook = $this->instance->getWorkBook();
+        $this->assertCount(2, $workbook->getAllSheets());
+    }
+
+
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provideTwoWorkSheets()
      *
      * @param mixed $input
      */
