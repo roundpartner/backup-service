@@ -88,6 +88,7 @@ class ExcelSheet
 
     /**
      * @param mixed $content
+     * @param mixed $key
      *
      * @return bool
      */
