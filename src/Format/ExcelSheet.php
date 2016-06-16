@@ -34,22 +34,25 @@ class ExcelSheet
         $this->content = $content;
     }
 
+    /**
+     * @return \PHPExcel_Worksheet
+     */
     public function process()
     {
-        $this->processContent($this->content);
         $this->processHeading();
-        return true;
+        $this->processContent($this->content['data']);
+        return $this->excel->getActiveSheet();
     }
 
     private function processHeading()
     {
         $this->excel->getActiveSheet()->insertNewRowBefore(1);
-        $headings = (object) array_combine($this->transcriber->getHeadings(), $this->transcriber->getHeadings());
+        $headings = $this->content['headings'];
         $this->transcriber->createSet();
-        foreach ($headings as $heading) {
+        foreach ($headings as $heading => $value) {
             $cell = $this->excel->getActiveSheet()->getCell($this->transcriber->getPosition($heading, $heading));
             $cell->getStyle()->getFont()->setBold(true);
-            $cell->setValue($heading);
+            $cell->setValue($value);
         }
     }
 

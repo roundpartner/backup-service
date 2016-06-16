@@ -45,47 +45,7 @@ class ExcelTest extends \PHPUnit_Framework_TestCase
     {
         $this->instance->setInput($input);
         $workbook = $this->instance->getWorkBook();
-        $this->assertEquals('alpha', $workbook->getActiveSheet()->getCell('A1')->getValue());
-    }
-
-    /**
-     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provideTwoWorkSheets()
-     *
-     * @param mixed $input
-     */
-    public function testCreatesHeadingsOnFirstRow($input)
-    {
-        $this->instance->setInput($input);
-        $workbook = $this->instance->getWorkBook();
-        $cell = $workbook->getActiveSheet()->getCell('A1');
-        $this->assertEquals('Letter', $cell->getValue());
-    }
-
-    /**
-     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provideTwoWorkSheets()
-     *
-     * @param mixed $input
-     */
-    public function testCreatesHeadingsOnSecondWorkSheetFirstRow($input)
-    {
-        $this->instance->setInput($input);
-        $workbook = $this->instance->getWorkBook();
-        $workbook->setActiveSheetIndexByName('Planes');
-        $cell = $workbook->getActiveSheet()->getCell('B1');
-        $this->assertEquals('Name', $cell->getValue());
-    }
-
-    /**
-     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provideTwoWorkSheets()
-     *
-     * @param mixed $input
-     */
-    public function testHeadingIsBold($input)
-    {
-        $this->instance->setInput($input);
-        $workbook = $this->instance->getWorkBook();
-        $cell = $workbook->getActiveSheet()->getCell('A1');
-        $this->assertTrue($cell->getStyle()->getFont()->getBold());
+        $this->assertInstanceOf('\PHPExcel', $workbook);
     }
 
     /**
