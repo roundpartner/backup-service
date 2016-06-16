@@ -56,9 +56,7 @@ class Excel implements Format
 
         $result = new ExcelResult();
         $result->setContents($excelWriter);
-
         
-
         return $result;
     }
 

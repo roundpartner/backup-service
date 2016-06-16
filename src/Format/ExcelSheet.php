@@ -40,7 +40,7 @@ class ExcelSheet
     public function process()
     {
         $this->processHeading();
-        $this->processContent($this->content['data']);
+        $this->processRows($this->content['data']);
         return $this->excel->getActiveSheet();
     }
 
@@ -57,26 +57,42 @@ class ExcelSheet
     }
 
     /**
+     * @param array $content
+     *
+     * @return bool
+     */
+    private function processRows($content)
+    {
+        foreach ($content as $value) {
+            $this->transcriber->createSet();
+            $this->processRow($value);
+        }
+        return true;
+    }
+
+    /**
+     * @param array $content
+     *
+     * @return bool
+     */
+    private function processRow($content)
+    {
+        if (is_object($content)) {
+            $content = get_object_vars($content);
+        }
+        foreach ($content as $key => $value) {
+            $this->processContent($value, $key);
+        }
+        return true;
+    }
+
+    /**
      * @param mixed $content
      *
      * @return bool
      */
     private function processContent($content, $key = null)
     {
-        if (is_array($content)) {
-            foreach ($content as $key => $value) {
-                $this->transcriber->createSet();
-                $this->processContent($value, $key);
-            }
-            return true;
-        }
-        if (is_object($content)) {
-            foreach (get_object_vars($content) as $key => $value) {
-                $this->processContent($value, $key);
-            }
-            return true;
-        }
-
         $cell = $this->excel->getActiveSheet()->getCell($this->transcriber->getPosition($key, $content));
         $cell->getStyle()->getFont()->setBold();
         $cell->setValue($content);

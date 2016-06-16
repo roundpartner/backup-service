@@ -60,7 +60,6 @@ class ExcelTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $workbook->getAllSheets());
     }
 
-
     /**
      * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provideTwoWorkSheets()
      *

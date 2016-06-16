@@ -19,7 +19,7 @@ class Excel implements Transcribe
      * @var array
      */
     protected $headings;
-    
+
     public function __construct()
     {
         $this->row = 0;
