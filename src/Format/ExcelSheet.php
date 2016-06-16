@@ -37,11 +37,20 @@ class ExcelSheet
     public function process()
     {
         $this->processContent($this->content);
+        $this->processHeading();
+        return true;
+    }
 
+    private function processHeading()
+    {
         $this->excel->getActiveSheet()->insertNewRowBefore(1);
         $headings = (object) array_combine($this->transcriber->getHeadings(), $this->transcriber->getHeadings());
         $this->transcriber->createSet();
-        return $this->processContent($headings);
+        foreach ($headings as $heading) {
+            $cell = $this->excel->getActiveSheet()->getCell($this->transcriber->getPosition($heading, $heading));
+            $cell->getStyle()->getFont()->setBold(true);
+            $cell->setValue($heading);
+        }
     }
 
     /**
@@ -54,6 +63,7 @@ class ExcelSheet
 
         if (is_string($content)) {
             $cell = $this->excel->getActiveSheet()->getCell($this->transcriber->getPosition($key, $content));
+            $cell->getStyle()->getFont()->setBold();
             $cell->setValue($content);
         }
         if (is_array($content)) {
