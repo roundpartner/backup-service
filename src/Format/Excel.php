@@ -79,6 +79,9 @@ class Excel implements Format
 
     private function processWorkSheet($content)
     {
+        if (null === $content) {
+            return false;
+        }
         if (!is_array($content)) {
             $excelSheetProcessor = new ExcelSheet($this->excel, $content);
             return $excelSheetProcessor->process();

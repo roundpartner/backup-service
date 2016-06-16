@@ -26,10 +26,10 @@ class FormatProvider
                 (object) array('Letter' => 'F', 'RAF' => 'Freddie', 'Nato' => 'Fox', 'Navy' => 'Freddie'),
             ),
             'Planes' => array(
-                (object) array('Make' => 'Supermarine', 'Name' => 'Spitfire', 'Produced' => '1938'),
-                (object) array('Make' => 'Hawker', 'Name' => 'Hurricane', 'Produced' => '1937'),
-                (object) array('Make' => 'Douglas', 'Name' => 'Havoc', 'Produced' => '1939'),
-                (object) array('Make' => 'Avro', 'Name' => 'Lancaster', 'Produced' => '1941'),
+                (object) array('Make' => 'Supermarine', 'Name' => 'Spitfire', 'Produced' => 1938),
+                (object) array('Make' => 'Hawker', 'Name' => 'Hurricane', 'Produced' => 1937),
+                (object) array('Make' => 'Douglas', 'Name' => 'Havoc', 'Produced' => 1939),
+                (object) array('Make' => 'Avro', 'Name' => 'Lancaster', 'Produced' => 1941),
             ),
         )));
     }

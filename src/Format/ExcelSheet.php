@@ -60,23 +60,23 @@ class ExcelSheet
      */
     private function processContent($content, $key = null)
     {
-
-        if (is_string($content)) {
-            $cell = $this->excel->getActiveSheet()->getCell($this->transcriber->getPosition($key, $content));
-            $cell->getStyle()->getFont()->setBold();
-            $cell->setValue($content);
-        }
         if (is_array($content)) {
             foreach ($content as $key => $value) {
                 $this->transcriber->createSet();
                 $this->processContent($value, $key);
             }
+            return true;
         }
         if (is_object($content)) {
             foreach (get_object_vars($content) as $key => $value) {
                 $this->processContent($value, $key);
             }
+            return true;
         }
+
+        $cell = $this->excel->getActiveSheet()->getCell($this->transcriber->getPosition($key, $content));
+        $cell->getStyle()->getFont()->setBold();
+        $cell->setValue($content);
         return true;
     }
 }
