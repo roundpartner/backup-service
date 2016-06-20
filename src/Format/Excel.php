@@ -32,6 +32,7 @@ class Excel implements Format
     {
         $this->headings = array();
         $this->transcriber = new \RoundPartner\Backup\Transcriber\Excel();
+        $this->content = array();
     }
 
     /**
@@ -69,21 +70,23 @@ class Excel implements Format
     {
         $this->excel = $this->getExcelInstance();
 
-        if (isset($this->content['properties'])) {
-            $properties = $this->excel->getProperties();
-            foreach ($this->content['properties'] as $property => $value) {
-                $setter = 'set' . $property;
-                $properties->$setter($value);
-            }
+        foreach ($this->content as $option => $value) {
+            $processMethod = 'process' . $option;
+            $this->{$processMethod}($value);
         }
-
-        $this->processWorkSheet($this->content['worksheets']);
-
         return $this->excel;
     }
 
+    public function processProperties($properties)
+    {
+        $documentProperties = $this->excel->getProperties();
+        foreach ($properties as $property => $value) {
+            $setter = 'set' . $property;
+            $documentProperties->$setter($value);
+        }
+    }
 
-    private function processWorkSheet($content)
+    private function processWorkSheets($content)
     {
         if (null === $content) {
             return false;
