@@ -69,8 +69,16 @@ class Excel implements Format
     {
         $this->excel = $this->getExcelInstance();
 
-        $this->processWorkSheet($this->content);
-        
+        if (isset($this->content['properties'])) {
+            $properties = $this->excel->getProperties();
+            foreach ($this->content['properties'] as $property => $value) {
+                $setter = 'set' . $property;
+                $properties->$setter($value);
+            }
+        }
+
+        $this->processWorkSheet($this->content['worksheets']);
+
         return $this->excel;
     }
 

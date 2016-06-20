@@ -7,15 +7,24 @@ class FormatProvider
     public static function provide()
     {
         return array(array(array(
-            'Phonetic Alphabet' => self::providePhoneticAlphabet(),
+            'properties' => array(
+                'creator' => 'Tom',
+                'LastModifiedBy' => 'Tom',
+                'Description' => 'Description of the worksheet',
+            ),
+            'worksheets' => array(
+                'Phonetic Alphabet' => self::providePhoneticAlphabet(),
+            )
         )));
     }
 
     public static function provideTwoWorkSheets()
     {
         return array(array(array(
-            'Phonetic Alphabet' => self::providePhoneticAlphabet(),
-            'Planes' => self::provideAircraft(),
+            'worksheets' => array(
+                'Phonetic Alphabet' => self::providePhoneticAlphabet(),
+                'Planes' => self::provideAircraft(),
+            )
         )));
     }
 

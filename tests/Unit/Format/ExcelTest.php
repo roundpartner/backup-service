@@ -73,6 +73,39 @@ class ExcelTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provide()
+     *
+     * @param mixed $input
+     */
+    public function testCreatorIsSet($input)
+    {
+        $this->instance->setInput($input);
+        $this->assertEquals('Tom', $this->instance->getWorkBook()->getProperties()->getCreator());
+    }
+
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provide()
+     *
+     * @param mixed $input
+     */
+    public function testLastModifiedByIsSet($input)
+    {
+        $this->instance->setInput($input);
+        $this->assertEquals('Tom', $this->instance->getWorkBook()->getProperties()->getLastModifiedBy());
+    }
+
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provide()
+     *
+     * @param mixed $input
+     */
+    public function testGetDescription($input)
+    {
+        $this->instance->setInput($input);
+        $this->assertEquals('Description of the worksheet', $this->instance->getWorkBook()->getProperties()->getDescription());
+    }
+
+    /**
      * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provideTwoWorkSheets()
      *
      * @param mixed $input
