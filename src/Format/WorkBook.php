@@ -2,7 +2,7 @@
 
 namespace RoundPartner\Backup\Format;
 
-class WorkSheet
+class WorkBook
 {
     /**
      * @var \PHPExcel

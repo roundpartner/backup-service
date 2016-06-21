@@ -2,9 +2,9 @@
 
 namespace RoundPartner\Tests\Unit\Format;
 
-use RoundPartner\Backup\Format\WorkSheet;
+use RoundPartner\Backup\Format\WorkBook;
 
-class WorkSheetTest extends \PHPUnit_Framework_TestCase
+class WorkBookTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -13,18 +13,18 @@ class WorkSheetTest extends \PHPUnit_Framework_TestCase
     protected $excelWorksheet;
 
     /**
-     * @var WorkSheet
+     * @var WorkBook
      */
     protected $instance;
 
     public function setUp()
     {
         $this->excelWorksheet = new \PHPExcel();
-        $this->instance = new WorkSheet($this->excelWorksheet);
+        $this->instance = new WorkBook($this->excelWorksheet);
     }
 
     public function testInstanceCreated()
     {
-        $this->assertInstanceOf('RoundPartner\Backup\Format\WorkSheet', $this->instance);
+        $this->assertInstanceOf('RoundPartner\Backup\Format\WorkBook', $this->instance);
     }
 }
