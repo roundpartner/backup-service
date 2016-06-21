@@ -1,6 +1,19 @@
 # Backup Service
 Service for generating back ups
 
+## Usage
+
+### Excel
+Get Excel Workbook as a string
+```php
+$result = ExcelFactory::asString($input);
+```
+This can then be outputted as a file
+```php
+header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: inline; filename="workbook.xlsx"');
+```
+
 ## Clean Code
 
 ```bash

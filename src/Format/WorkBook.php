@@ -14,6 +14,13 @@ class WorkBook
         $this->excel = $excel;
     }
 
+    /**
+     * @param array $content
+     *
+     * @return bool|\PHPExcel_Worksheet
+     *
+     * @throws \PHPExcel_Exception
+     */
     public function process($content)
     {
         if (null === $content) {
