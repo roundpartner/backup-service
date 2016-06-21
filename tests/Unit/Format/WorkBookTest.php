@@ -27,4 +27,19 @@ class WorkBookTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('RoundPartner\Backup\Format\WorkBook', $this->instance);
     }
+
+    public function testFalseIsReturnedOnEmptyContent()
+    {
+        $this->assertFalse($this->instance->process(null));
+    }
+
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provide()
+     *
+     * @param mixed $input
+     */
+    public function testTrueOnProcessWithContent($input)
+    {
+        $this->assertTrue($this->instance->process($input['worksheets']));
+    }
 }
