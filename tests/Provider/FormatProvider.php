@@ -47,10 +47,10 @@ class FormatProvider
     public static function provideAircraft()
     {
         $data = array(
-            (object) array('make' => 'Supermarine', 'name' => 'Spitfire', 'produced' => 1938),
-            (object) array('make' => 'Hawker', 'name' => 'Hurricane', 'produced' => 1937),
-            (object) array('make' => 'Douglas', 'name' => 'Havoc', 'produced' => 1939),
-            (object) array('make' => 'Avro', 'name' => 'Lancaster', 'produced' => 1941),
+            (object) array('id' => 1, 'make' => 'Supermarine', 'name' => 'Spitfire', 'produced' => 1938),
+            (object) array('id' => 2, 'make' => 'Hawker', 'name' => 'Hurricane', 'produced' => 1937),
+            (object) array('id' => 3, 'make' => 'Douglas', 'name' => 'Havoc', 'produced' => 1939),
+            (object) array('id' => 4, 'make' => 'Avro', 'name' => 'Lancaster', 'produced' => 1941),
         );
         return array(
             'headings' => array('make' => 'Make', 'name' => 'Name', 'produced' => 'Produced'),

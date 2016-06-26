@@ -19,7 +19,7 @@ class ExcelSheetTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $alphabetData = FormatProvider::providePhoneticAlphabet();
+        $alphabetData = FormatProvider::provideAircraft();
         $this->excelWorksheet = new \PHPExcel();
         $this->instance = new ExcelSheet($this->excelWorksheet, $alphabetData);
     }
@@ -37,12 +37,30 @@ class ExcelSheetTest extends \PHPUnit_Framework_TestCase
     public function testCreatesHeadingsOnFirstRow()
     {
         $cell = $this->instance->process()->getCell('A1');
-        $this->assertEquals('Letter', $cell->getValue());
+        $this->assertEquals('Make', $cell->getValue());
     }
 
     public function testHeadingIsBold()
     {
         $cell = $this->instance->process()->getCell('A1');
         $this->assertTrue($cell->getStyle()->getFont()->getBold());
+    }
+
+    public function testOnlyValuesWithHeadingsPresent()
+    {
+        $cell = $this->instance->process()->getCell('A2');
+        $this->assertEquals('Supermarine', $cell->getValue());
+    }
+
+    public function testNoAdditionalHeadingColumnsAdded()
+    {
+        $cell = $this->instance->process()->getCell('D1');
+        $this->assertEquals('', $cell->getValue());
+    }
+
+    public function testNoAdditionalColumnsAdded()
+    {
+        $cell = $this->instance->process()->getCell('D2');
+        $this->assertEquals('', $cell->getValue());
     }
 }

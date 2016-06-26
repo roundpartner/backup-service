@@ -92,8 +92,11 @@ class ExcelSheet
      *
      * @return bool
      */
-    private function processContent($content, $key = null)
+    private function processContent($content, $key)
     {
+        if (!array_key_exists($key, $this->content['headings'])) {
+            return false;
+        }
         $cell = $this->excel->getActiveSheet()->getCell($this->transcriber->getPosition($key, $content));
         $cell->getStyle()->getFont()->setBold();
         $cell->setValue($content);
