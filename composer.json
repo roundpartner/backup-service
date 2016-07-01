@@ -9,6 +9,16 @@
       "email": "tom@thomaslorentsen.co.uk"
     }
   ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/roundpartner/verify-hash"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/roundpartner/cloud"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "RoundPartner\\Backup\\": "src/"
@@ -21,9 +31,15 @@
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",
-    "phpunit/phpunit": "^4.8"
+    "phpunit/phpunit": "^4.8",
+    "roundpartner/verify-hash": "dev-master",
+    "roundpartner/cloud": "dev-master"
   },
   "require": {
     "phpoffice/phpexcel": "^1.8"
+  },
+  "suggest": {
+    "roundpartner/verify-hash": "Required for cloud support",
+    "roundpartner/cloud": "Provide cloud support for back ups"
   }
 }
