@@ -4,6 +4,7 @@ namespace RoundPartner\Backup;
 
 use RoundPartner\Backup\Format\Excel;
 use RoundPartner\Backup\Format\Format;
+use RoundPartner\Backup\Storage\Cloud;
 use RoundPartner\Backup\Storage\File;
 use RoundPartner\Backup\Storage\Storage;
 
@@ -21,7 +22,13 @@ class ExcelFactory
         $excel->setInput($config);
         return $excel->getOutput()->getContents();
     }
-    
+
+    /**
+     * @param array $config
+     * @param string $filename
+     *
+     * @return bool
+     */
     public static function asFile($config, $filename)
     {
         $excel = new Excel();
@@ -30,6 +37,21 @@ class ExcelFactory
         return self::createBackup($excel, $fileStorage);
     }
 
+    /**
+     * @param array $config
+     * @param \RoundPartner\Cloud\Cloud $service
+     * @param string $containerName
+     * @param string $documentName
+     *
+     * @return bool
+     */
+    public static function asCloud($config, $service, $containerName, $documentName)
+    {
+        $excel = new Excel();
+        $excel->setInput($config);
+        $cloud = new Cloud($service, $containerName, $documentName);
+        return self::createBackup($excel, $cloud);
+    }
     /**
      * @param Format $format
      * @param Storage $storage
