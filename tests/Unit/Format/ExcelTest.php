@@ -6,6 +6,7 @@ use RoundPartner\Backup\Format\Excel;
 
 class ExcelTest extends \PHPUnit_Framework_TestCase
 {
+    const EXPECTED_WORKBOOK_NAME = 'Phonetic Alphabet';
     /**
      * @var Excel
      */
@@ -114,6 +115,34 @@ class ExcelTest extends \PHPUnit_Framework_TestCase
     {
         $this->instance->setInput($input);
         $content = $this->instance->getOutput()->getContents();
+        $this->assertNotFalse(file_put_contents('output.xlsx', $content));
+    }
+
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provideTwoWorkSheets()
+     *
+     * @param mixed $input
+     */
+    public function testGeneratedWorkBookHasWorkBookNames($input)
+    {
+        $this->instance->setInput($input);
+        $workBooks = $this->instance->getWorkBook()->getSheetNames();
+        $this->assertContains(self::EXPECTED_WORKBOOK_NAME, $workBooks);
+    }
+
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provideTwoWorkSheets()
+     *
+     * @param mixed $input
+     */
+    public function testSavedOutputCanBeReopened($input)
+    {
+        $this->instance->setInput($input);
+        $content = $this->instance->getOutput()->getContents();
         file_put_contents('output.xlsx', $content);
+        $reader = \PHPExcel_IOFactory::createReaderForFile('output.xlsx');
+        $workBook = $reader->load('output.xlsx');
+        $workBooks = $workBook->getSheetNames();
+        $this->assertContains(self::EXPECTED_WORKBOOK_NAME, $workBooks);
     }
 }
