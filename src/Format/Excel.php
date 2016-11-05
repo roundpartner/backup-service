@@ -57,7 +57,6 @@ class Excel implements Format
 
         $result = new ExcelResult();
         $result->setContents($excelWriter);
-        $excel->disconnectWorksheets();
 
         return $result;
     }
