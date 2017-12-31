@@ -22,26 +22,32 @@ class Cloud implements Storage
     protected $documentName;
 
     /**
+     * @var string
+     */
+    protected $region;
+
+    /**
      * @param \RoundPartner\Cloud\Cloud $service
      * @param string $containerName
      * @param string $documentName
+     * @param string $region
      */
-    public function __construct($service, $containerName, $documentName)
+    public function __construct($service, $containerName, $documentName, $region = 'LON')
     {
         $this->service = $service;
         $this->containerName = $containerName;
         $this->documentName = $documentName;
+        $this->region = $region;
     }
 
     /**
      * @param Result $content
-     * @param string $region
      *
      * @return bool
      */
-    public function store($content, $region = 'LON')
+    public function store($content)
     {
-        $response = $this->service->document($region)->postDocument(
+        $response = $this->service->document($this->region)->postDocument(
             $this->containerName,
             $this->documentName,
             $content->getContents()

@@ -23,10 +23,12 @@ class CloudTest extends \PHPUnit_Framework_TestCase
         $this->containerName = 'test_cloud_document_container';
         $client = new \RoundPartner\Cloud\Cloud($this->newClient(), 'secret');
 
-        $this->instance = new Cloud($client, $this->containerName, 'test_document.txt');
+        $this->instance = new Cloud($client, $this->containerName, 'test_document.txt', 'DFW');
+
+        $base = BASE_PATH;
 
         $mockSubscriber = new MockSubscriber(array(
-            '../../../vendor/rackspace/php-opencloud/tests/OpenCloud/Tests/_response/Auth.resp'
+            BASE_PATH . '/vendor/rackspace/php-opencloud/tests/OpenCloud/Tests/_response/Auth.resp'
         ));
         $client->getClient()->addSubscriber($mockSubscriber);
     }
@@ -40,11 +42,11 @@ class CloudTest extends \PHPUnit_Framework_TestCase
     {
         $result = new Result();
         $result->setContents('data');
-        $result = $this->instance->store($result, 'DFW');
+        $result = $this->instance->store($result);
         $this->assertTrue($result);
     }
 
-    public function newClient()
+    private function newClient()
     {
         return new \RoundPartner\Cloud\Service\Cloud(\OpenCloud\Rackspace::US_IDENTITY_ENDPOINT, array(
             'username' => 'foo',

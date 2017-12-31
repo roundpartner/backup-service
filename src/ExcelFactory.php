@@ -42,14 +42,15 @@ class ExcelFactory
      * @param \RoundPartner\Cloud\Cloud $service
      * @param string $containerName
      * @param string $documentName
+     * @param string $region
      *
      * @return bool
      */
-    public static function asCloud($config, $service, $containerName, $documentName)
+    public static function asCloud($config, $service, $containerName, $documentName, $region = 'LON')
     {
         $excel = new Excel();
         $excel->setInput($config);
-        $cloud = new Cloud($service, $containerName, $documentName);
+        $cloud = new Cloud($service, $containerName, $documentName, $region);
         return self::createBackup($excel, $cloud);
     }
     /**
