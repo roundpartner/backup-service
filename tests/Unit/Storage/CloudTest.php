@@ -25,8 +25,6 @@ class CloudTest extends \PHPUnit_Framework_TestCase
 
         $this->instance = new Cloud($client, $this->containerName, 'test_document.txt', 'DFW');
 
-        $base = BASE_PATH;
-
         $mockSubscriber = new MockSubscriber(array(
             BASE_PATH . '/vendor/rackspace/php-opencloud/tests/OpenCloud/Tests/_response/Auth.resp'
         ));
