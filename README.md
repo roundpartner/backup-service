@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/roundpartner/backup-service.svg?branch=master)](https://travis-ci.org/roundpartner/backup-service)
 # Backup Service
 Service for generating back ups
 
