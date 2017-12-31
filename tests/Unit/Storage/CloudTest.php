@@ -4,6 +4,7 @@ namespace RoundPartner\Tests\Unit\Storage;
 
 use RoundPartner\Backup\Result;
 use RoundPartner\Backup\Storage\Cloud;
+use OpenCloud\Tests\MockSubscriber;
 
 class CloudTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,11 +20,15 @@ class CloudTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $config = \RoundPartner\Conf\Service::get('testclouddocument');
-        $this->containerName = $config['name'];
-        $config = \RoundPartner\Conf\Service::get('opencloud');
-        $client = \RoundPartner\Cloud\CloudFactory::create($config['username'], $config['key'], $config['secret']);
+        $this->containerName = 'test_cloud_document_container';
+        $client = new \RoundPartner\Cloud\Cloud($this->newClient(), 'secret');
+
         $this->instance = new Cloud($client, $this->containerName, 'test_document.txt');
+
+        $mockSubscriber = new MockSubscriber(array(
+            '../../../vendor/rackspace/php-opencloud/tests/OpenCloud/Tests/_response/Auth.resp'
+        ));
+        $client->getClient()->addSubscriber($mockSubscriber);
     }
 
     public function testCreateInstance()
@@ -35,7 +40,15 @@ class CloudTest extends \PHPUnit_Framework_TestCase
     {
         $result = new Result();
         $result->setContents('data');
-        $result = $this->instance->store($result);
+        $result = $this->instance->store($result, 'DFW');
         $this->assertTrue($result);
+    }
+
+    public function newClient()
+    {
+        return new \RoundPartner\Cloud\Service\Cloud(\OpenCloud\Rackspace::US_IDENTITY_ENDPOINT, array(
+            'username' => 'foo',
+            'apiKey'   => 'bar'
+        ));
     }
 }

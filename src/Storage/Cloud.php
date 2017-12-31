@@ -35,12 +35,13 @@ class Cloud implements Storage
 
     /**
      * @param Result $content
+     * @param string $region
      *
      * @return bool
      */
-    public function store($content)
+    public function store($content, $region = 'LON')
     {
-        $response = $this->service->document()->postDocument(
+        $response = $this->service->document($region)->postDocument(
             $this->containerName,
             $this->documentName,
             $content->getContents()
