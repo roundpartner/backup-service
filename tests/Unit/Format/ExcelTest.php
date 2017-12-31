@@ -103,7 +103,10 @@ class ExcelTest extends \PHPUnit_Framework_TestCase
     public function testGetDescription($input)
     {
         $this->instance->setInput($input);
-        $this->assertEquals('Description of the worksheet', $this->instance->getWorkBook()->getProperties()->getDescription());
+        $this->assertEquals(
+            'Description of the worksheet',
+            $this->instance->getWorkBook()->getProperties()->getDescription()
+        );
     }
 
     /**

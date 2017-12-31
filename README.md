@@ -18,4 +18,5 @@ header('Content-Disposition: inline; filename="workbook.xlsx"');
 
 ```bash
 ./vendor/bin/phpcbf --standard=psr2 ./src
+./vendor/bin/phpcs --standard=psr2 ./src
 ```

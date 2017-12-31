@@ -40,7 +40,11 @@ class Cloud implements Storage
      */
     public function store($content)
     {
-        $response = $this->service->document()->postDocument($this->containerName, $this->documentName, $content->getContents());
+        $response = $this->service->document()->postDocument(
+            $this->containerName,
+            $this->documentName,
+            $content->getContents()
+        );
         return false !== $response;
     }
 }
