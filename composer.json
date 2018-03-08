@@ -39,7 +39,7 @@
     "roundpartner/cloud": "dev-master"
   },
   "require": {
-    "phpoffice/phpexcel": "^1.8"
+    "phpoffice/phpspreadsheet": "^1.2"
   },
   "suggest": {
     "roundpartner/verify-hash": "Required for cloud support",
