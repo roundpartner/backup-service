@@ -48,6 +48,8 @@ class Excel implements Format
 
     /**
      * @return ExcelResult
+     *
+     * @throws \PHPExcel_Exception
      */
     public function getOutput()
     {

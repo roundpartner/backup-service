@@ -9,6 +9,9 @@ class WorkBook
      */
     protected $excel;
 
+    /**
+     * @param \PHPExcel $excel
+     */
     public function __construct(\PHPExcel $excel)
     {
         $this->excel = $excel;

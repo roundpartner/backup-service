@@ -52,6 +52,9 @@ class Excel implements Transcribe
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getCellString()
     {
         return \PHPExcel_Cell::stringFromColumnIndex($this->column) . $this->row;
