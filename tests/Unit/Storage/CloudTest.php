@@ -21,7 +21,7 @@ class CloudTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->containerName = 'test_cloud_document_container';
-        $client = new \RoundPartner\Cloud\Cloud($this->newClient(), 'secret');
+        $client = new \RoundPartner\Cloud\Cloud($this->newClient(), new \GuzzleHttp\Client(), 'secret');
 
         $this->instance = new Cloud($client, $this->containerName, 'test_document.txt', 'DFW');
 

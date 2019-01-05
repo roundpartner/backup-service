@@ -39,6 +39,7 @@
     "roundpartner/cloud": "dev-master"
   },
   "require": {
+    "guzzlehttp/guzzle": "^6.3",
     "phpoffice/phpexcel": "^1.8"
   },
   "suggest": {

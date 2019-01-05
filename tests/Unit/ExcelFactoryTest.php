@@ -37,7 +37,7 @@ class ExcelFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testExcelReturnsAsCloud($input)
     {
-        $client = new \RoundPartner\Cloud\Cloud($this->newClient(), 'secret');
+        $client = new \RoundPartner\Cloud\Cloud($this->newClient(), new \GuzzleHttp\Client(), 'secret');
         $mockSubscriber = new MockSubscriber(array(
             BASE_PATH . '/vendor/rackspace/php-opencloud/tests/OpenCloud/Tests/_response/Auth.resp'
         ));
