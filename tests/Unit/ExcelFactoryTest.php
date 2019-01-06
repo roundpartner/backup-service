@@ -4,6 +4,10 @@ namespace RoundPartner\Tests\Unit;
 
 use RoundPartner\Backup\ExcelFactory;
 use OpenCloud\Tests\MockSubscriber;
+use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
 class ExcelFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,11 +52,38 @@ class ExcelFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result);
     }
 
+    /**
+     * @dataProvider \RoundPartner\Tests\Provider\FormatProvider::provideTwoWorkSheets()
+     *
+     * @param mixed $input
+     */
+    public function testExcelReturnsAsFreezer($input)
+    {
+
+        $client = $this->getClientMock([new Response(204, [], '')]);
+
+        $result = ExcelFactory::asFreezer($input, 'backup', 'text_excel.xlsx', $client);
+        $this->assertTrue($result);
+    }
+
     private function newClient()
     {
         return new \RoundPartner\Cloud\Service\Cloud(\OpenCloud\Rackspace::US_IDENTITY_ENDPOINT, array(
             'username' => 'foo',
             'apiKey'   => 'bar'
         ));
+    }
+
+    /**
+     * @param Response[] $responses
+     *
+     * @return Client
+     */
+    protected function getClientMock($responses)
+    {
+        $mock = new MockHandler($responses);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+        return $client;
     }
 }

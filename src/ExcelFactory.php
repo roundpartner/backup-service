@@ -6,6 +6,7 @@ use RoundPartner\Backup\Format\Excel;
 use RoundPartner\Backup\Format\Format;
 use RoundPartner\Backup\Storage\Cloud;
 use RoundPartner\Backup\Storage\File;
+use RoundPartner\Backup\Storage\Freezer;
 use RoundPartner\Backup\Storage\Storage;
 
 class ExcelFactory
@@ -53,6 +54,26 @@ class ExcelFactory
         $cloud = new Cloud($service, $containerName, $documentName, $region);
         return self::createBackup($excel, $cloud);
     }
+
+    /**
+     * @param array $config
+     * @param string $bucket
+     * @param string $documentName
+     * @param \GuzzleHttp\Client $client
+     *
+     * @return bool
+     */
+    public static function asFreezer($config, $bucket, $documentName, $client = null)
+    {
+        $excel = new Excel();
+        $excel->setInput($config);
+        $freezer = new Freezer($bucket, $documentName);
+        if (null !== $client) {
+            $freezer->setClient($client);
+        }
+        return self::createBackup($excel, $freezer);
+    }
+
     /**
      * @param Format $format
      * @param Storage $storage
