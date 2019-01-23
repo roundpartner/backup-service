@@ -24,6 +24,8 @@ class Freezer implements Storage
     protected $documentName;
 
     /**
+     * @param string $bucket
+     * @param string $documentName
      */
     public function __construct($bucket, $documentName)
     {
