@@ -5,18 +5,20 @@ on: [push]
 jobs:
 
   Unit Test:
-    - name: Setup PHP with PECL extension
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.2'
-        coverage: xdebug
-        tools: phpunit, composer:v2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.2'
+          coverage: xdebug
+          tools: phpunit, composer:v2
 
-    - name: Check out repository code
-      uses: actions/checkout@v3
+      - name: Check out repository code
+        uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: composer install --prefer-dist
+      - name: Install dependencies
+        run: composer install --prefer-dist
 
-    - name: Run Unit Tests
-      run: vendor/bin/phpunit
+      - name: Run Unit Tests
+        run: vendor/bin/phpunit
