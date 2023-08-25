@@ -5,12 +5,15 @@ on: [push]
 jobs:
 
   test:
+    strategy:
+      matrix:
+        php-versions: ['7.2', '8.3']
     runs-on: ubuntu-latest
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.2'
+          php-version: ${{ matrix.php-versions }}
           tools: phpunit, composer:v2
 
       - name: Check out repository code
