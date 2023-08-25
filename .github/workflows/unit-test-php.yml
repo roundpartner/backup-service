@@ -7,7 +7,7 @@ jobs:
   test:
     strategy:
       matrix:
-        php-versions: ['7.2', '8.3']
+        php-versions: ['7.0', '7.2']
     runs-on: ubuntu-latest
     steps:
       - name: Setup PHP
